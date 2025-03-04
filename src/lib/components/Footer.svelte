@@ -7,10 +7,10 @@
 		<div class="mb-8 grid gap-8 md:grid-cols-3">
 			<div>
 				<h3 class="mb-4 text-lg font-medium">
-					{language === 'ja' ? 'AIコンサルティング' : 'AI Consulting'}
+					{language.currentLanguage === 'ja' ? 'AIコンサルティング' : 'AI Consulting'}
 				</h3>
 				<p class="text-gray-600 dark:text-gray-400">
-					{language === 'ja'
+					{language.currentLanguage === 'ja'
 						? 'AI技術を活用してビジネスを次のレベルへ。'
 						: 'Elevate your business with AI technology.'}
 				</p>
@@ -18,27 +18,27 @@
 
 			<div>
 				<h3 class="mb-4 text-lg font-medium">
-					{language === 'ja' ? 'リンク' : 'Links'}
+					{language.currentLanguage === 'ja' ? 'リンク' : 'Links'}
 				</h3>
 				<ul class="space-y-2 text-gray-600 dark:text-gray-400">
 					<li>
 						<a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">
-							{language === 'ja' ? 'ホーム' : 'Home'}
+							{language.currentLanguage === 'ja' ? 'ホーム' : 'Home'}
 						</a>
 					</li>
 					<li>
 						<a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400">
-							{language === 'ja' ? '私たちについて' : 'About Us'}
+							{language.currentLanguage === 'ja' ? '私たちについて' : 'About Us'}
 						</a>
 					</li>
 					<li>
 						<a href="#services" class="hover:text-blue-600 dark:hover:text-blue-400">
-							{language === 'ja' ? 'サービス' : 'Services'}
+							{language.currentLanguage === 'ja' ? 'サービス' : 'Services'}
 						</a>
 					</li>
 					<li>
 						<a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400">
-							{language === 'ja' ? 'お問い合わせ' : 'Contact'}
+							{language.currentLanguage === 'ja' ? 'お問い合わせ' : 'Contact'}
 						</a>
 					</li>
 				</ul>
@@ -46,11 +46,11 @@
 
 			<div>
 				<h3 class="mb-4 text-lg font-medium">
-					{language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
+					{language.currentLanguage === 'ja' ? 'お問い合わせ' : 'Contact Us'}
 				</h3>
 				<address class="text-gray-600 not-italic dark:text-gray-400">
 					<p>
-						{language === 'ja' ? '東京都千代田区' : 'Chiyoda-ku, Tokyo, Japan'}
+						{language.currentLanguage === 'ja' ? '東京都千代田区' : 'Chiyoda-ku, Tokyo, Japan'}
 					</p>
 					<p>contact@ai-consulting.jp</p>
 					<p>+81 3-1234-5678</p>
@@ -60,7 +60,7 @@
 
 		<div class="border-t border-gray-300 pt-6 dark:border-gray-700">
 			<p class="text-center text-sm text-gray-600 dark:text-gray-400">
-				&copy; {new Date().getFullYear()} AI Consulting. {language === 'ja'
+				&copy; {new Date().getFullYear()} AI Consulting. {language.currentLanguage === 'ja'
 					? '全ての権利を保有します。'
 					: 'All rights reserved.'}
 			</p>

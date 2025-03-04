@@ -135,7 +135,7 @@
 <section>
 	<div class="mb-4">
 		<p class="mb-4 text-gray-600 dark:text-gray-300">
-			{language === 'ja'
+			{language.currentLanguage === 'ja'
 				? 'AIで効率化したい業務を選択してください（複数可）'
 				: 'Select the activities you want to optimize with AI (multiple selection allowed)'}
 		</p>
@@ -164,14 +164,16 @@
 				>
 					<path stroke-linecap="round" stroke-linejoin="round" d={getIcon(point.icon)} />
 				</svg>
-				<span>{language === 'ja' ? point.ja : point.en}</span>
+				<span>{language.currentLanguage === 'ja' ? point.ja : point.en}</span>
 			</button>
 		{/each}
 	</div>
 
 	{#if formData.painPoints.length === 0}
 		<p class="mt-2 text-sm text-red-500">
-			{language === 'ja' ? '少なくとも1つ選択してください' : 'Please select at least one option'}
+			{language.currentLanguage === 'ja'
+				? '少なくとも1つ選択してください'
+				: 'Please select at least one option'}
 		</p>
 	{/if}
 </section>

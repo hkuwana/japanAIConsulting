@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle: Represents harmony and completeness (Enso) -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#444" stroke-width="2" opacity="0.1"/>
+  
+  <!-- Partial Enso circle (Japanese zen symbol) -->
+  <path d="M160,100 A60,60 0 1,1 100,40" fill="none" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Hexagon shape representing digital/technology -->
+  <polygon points="100,60 130,75 130,115 100,130 70,115 70,75" fill="none" stroke="#333" stroke-width="2"/>
+  
+  <!-- AI circuitry pattern -->
+  <line x1="100" y1="60" x2="100" y2="130" stroke="#555" stroke-width="1.5"/>
+  <line x1="70" y1="75" x2="130" y2="75" stroke="#555" stroke-width="1.5"/>
+  <line x1="70" y1="115" x2="130" y2="115" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Nodes representing neural network -->
+  <circle cx="100" cy="60" r="4" fill="#E53E3E"/>
+  <circle cx="130" cy="75" r="4" fill="#E53E3E"/>
+  <circle cx="130" cy="115" r="4" fill="#E53E3E"/>
+  <circle cx="100" cy="130" r="4" fill="#E53E3E"/>
+  <circle cx="70" cy="115" r="4" fill="#E53E3E"/>
+  <circle cx="70" cy="75" r="4" fill="#E53E3E"/>
+  
+  <!-- Central node -->
+  <circle cx="100" cy="95" r="8" fill="#E53E3E"/>
+  
+  <!-- Japanese-inspired element (minimalist mountain, like Mt. Fuji) -->
+  <path d="M85,110 L100,85 L115,110" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"/>
+</svg>

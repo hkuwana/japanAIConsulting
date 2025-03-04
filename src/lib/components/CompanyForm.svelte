@@ -60,7 +60,7 @@
 		<!-- Company Name -->
 		<div>
 			<label for="companyName" class="mb-1 block font-medium">
-				{language === 'ja' ? '会社名' : 'Company Name'}
+				{language.currentLanguage === 'ja' ? '会社名' : 'Company Name'}
 				<span class="text-red-500">*</span>
 			</label>
 			<input
@@ -69,14 +69,16 @@
 				name="companyName"
 				bind:value={formData.companyName}
 				oninput={handleInput}
-				placeholder={language === 'ja' ? '御社名を入力' : 'Enter your company name'}
+				placeholder={language.currentLanguage === 'ja' ? '御社名を入力' : 'Enter your company name'}
 				class="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white {errors.companyName
 					? 'border-red-500'
 					: ''}"
 			/>
 			{#if errors.companyName}
 				<p class="mt-1 text-sm text-red-500">
-					{language === 'ja' ? '会社名を入力してください' : 'Please enter your company name'}
+					{language.currentLanguage === 'ja'
+						? '会社名を入力してください'
+						: 'Please enter your company name'}
 				</p>
 			{/if}
 		</div>
@@ -84,7 +86,7 @@
 		<!-- Company Size -->
 		<div>
 			<p class="mb-1 font-medium">
-				{language === 'ja' ? '会社の規模' : 'Company Size'}
+				{language.currentLanguage === 'ja' ? '会社の規模' : 'Company Size'}
 				<span class="text-red-500">*</span>
 			</p>
 			<div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -100,7 +102,7 @@
 						onclick={() => selectCompanySize(size.id)}
 					>
 						<span>
-							{language === 'ja' ? size.ja : size.en}
+							{language.currentLanguage === 'ja' ? size.ja : size.en}
 						</span>
 
 						{#if formData.companySize === size.id}
@@ -124,7 +126,9 @@
 			</div>
 			{#if errors.companySize}
 				<p class="mt-1 text-sm text-red-500">
-					{language === 'ja' ? '会社規模を選択してください' : 'Please select your company size'}
+					{language.currentLanguage === 'ja'
+						? '会社規模を選択してください'
+						: 'Please select your company size'}
 				</p>
 			{/if}
 		</div>
@@ -132,16 +136,16 @@
 		<!-- Company Description -->
 		<div>
 			<label for="companyDescription" class="mb-1 block font-medium">
-				{language === 'ja' ? '会社の説明' : 'Company Description'}
+				{language.currentLanguage === 'ja' ? '会社の説明' : 'Company Description'}
 				<span class="text-sm font-normal text-gray-500">
-					({language === 'ja' ? '任意' : 'optional'})
+					({language.currentLanguage === 'ja' ? '任意' : 'optional'})
 				</span>
 			</label>
 			<textarea
 				id="companyDescription"
 				name="companyDescription"
 				bind:value={formData.companyDescription}
-				placeholder={language === 'ja'
+				placeholder={language.currentLanguage === 'ja'
 					? '会社の業務内容やAI化したい業務の詳細などを入力してください'
 					: 'Please describe your company and any specific tasks you want to optimize with AI'}
 				rows="3"

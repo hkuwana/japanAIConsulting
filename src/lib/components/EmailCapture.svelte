@@ -44,7 +44,7 @@
 		<!-- Email input -->
 		<div>
 			<label for="email" class="mb-1 block font-medium">
-				{language === 'ja' ? 'メールアドレス' : 'Email Address'}
+				{language.currentLanguage === 'ja' ? 'メールアドレス' : 'Email Address'}
 				<span class="text-red-500">*</span>
 			</label>
 			<input
@@ -53,14 +53,16 @@
 				name="email"
 				bind:value={formData.email}
 				oninput={handleEmailInput}
-				placeholder={language === 'ja' ? 'your-email@example.com' : 'your-email@example.com'}
+				placeholder={language.currentLanguage === 'ja'
+					? 'your-email@example.com'
+					: 'your-email@example.com'}
 				class="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white {emailError
 					? 'border-red-500'
 					: ''}"
 			/>
 			{#if emailError}
 				<p class="mt-1 text-sm text-red-500">
-					{language === 'ja'
+					{language.currentLanguage === 'ja'
 						? '有効なメールアドレスを入力してください'
 						: 'Please enter a valid email address'}
 				</p>
@@ -85,7 +87,7 @@
 					for="accept"
 					class={acceptError ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'}
 				>
-					{language === 'ja'
+					{language.currentLanguage === 'ja'
 						? 'プライバシーポリシーに同意します。メールでのご連絡に同意します。'
 						: 'I agree to the privacy policy. I consent to receiving emails.'}
 				</label>
@@ -94,14 +96,16 @@
 
 		{#if acceptError}
 			<p class="mt-1 text-sm text-red-500">
-				{language === 'ja' ? '続行するには同意が必要です' : 'You must agree to continue'}
+				{language.currentLanguage === 'ja'
+					? '続行するには同意が必要です'
+					: 'You must agree to continue'}
 			</p>
 		{/if}
 
 		<!-- Summary -->
 		<div class="mt-6 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
 			<h4 class="text-lg font-medium text-blue-800 dark:text-blue-300">
-				{language === 'ja' ? '無料で受け取れるもの:' : 'You will receive for free:'}
+				{language.currentLanguage === 'ja' ? '無料で受け取れるもの:' : 'You will receive for free:'}
 			</h4>
 			<ul class="mt-2 space-y-1 text-blue-700 dark:text-blue-200">
 				<li class="flex items-center">
@@ -119,7 +123,7 @@
 							d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>
-					{language === 'ja'
+					{language.currentLanguage === 'ja'
 						? 'カスタマイズされたAIソフトウェア推奨リスト'
 						: 'Customized AI software recommendations'}
 				</li>
@@ -138,7 +142,9 @@
 							d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>
-					{language === 'ja' ? '導入方法の基本ガイド' : 'Basic implementation guides'}
+					{language.currentLanguage === 'ja'
+						? '導入方法の基本ガイド'
+						: 'Basic implementation guides'}
 				</li>
 				<li class="flex items-center">
 					<svg
@@ -155,7 +161,7 @@
 							d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>
-					{language === 'ja'
+					{language.currentLanguage === 'ja'
 						? '無料コンサルティングセッションの予約案内'
 						: 'Instructions to book a free consultation'}
 				</li>

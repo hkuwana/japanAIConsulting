@@ -25,11 +25,13 @@
 
 <section class="mt-8">
 	<h3 class="mb-3 text-lg font-medium">
-		{language === 'ja' ? '週あたりの手作業の時間' : 'Hours spent on manual tasks per week'}
+		{language.currentLanguage === 'ja'
+			? '週あたりの手作業の時間'
+			: 'Hours spent on manual tasks per week'}
 	</h3>
 
 	<p class="mb-4 text-gray-600 dark:text-gray-300">
-		{language === 'ja'
+		{language.currentLanguage === 'ja'
 			? '選択した業務に週あたり何時間程度費やしていますか？'
 			: 'How many hours per week do you spend on these tasks?'}
 	</p>
@@ -45,7 +47,7 @@
 				onclick={() => selectTimeSpent(range.value)}
 			>
 				<span>
-					{language === 'ja' ? range.ja : range.en}
+					{language.currentLanguage === 'ja' ? range.ja : range.en}
 				</span>
 
 				{#if formData.timeSpent === range.value}
@@ -70,7 +72,7 @@
 
 	{#if !formData.timeSpent}
 		<p class="mt-2 text-sm text-red-500">
-			{language === 'ja' ? '時間を選択してください' : 'Please select an option'}
+			{language.currentLanguage === 'ja' ? '時間を選択してください' : 'Please select an option'}
 		</p>
 	{/if}
 </section>

@@ -73,19 +73,18 @@
 	onMount(() => {
 		// Set default language based on browser
 		const userLang = navigator.language;
-		language = userLang.startsWith('ja') ? 'ja' : 'en';
 	});
 </script>
 
 <svelte:head>
 	<title
-		>{language === 'ja'
+		>{language.isJapanese()
 			? 'AIコンサルティング | ビジネス効率化'
 			: 'AI Consulting | Business Optimization'}</title
 	>
 	<meta
 		name="description"
-		content={language === 'ja'
+		content={language.isJapanese()
 			? 'AIテクノロジーを活用してビジネスプロセスを最適化。無料のソフトウェア推奨リストを今すぐ入手。'
 			: 'Optimize your business processes with AI technology. Get your free software recommendation list today.'}
 	/>
@@ -106,7 +105,7 @@
 			<div class="mb-6">
 				<div class="mb-2 flex items-center justify-between">
 					<span class="text-sm font-medium">
-						{language === 'ja' ? 'ステップ' : 'Step'}
+						{language.isJapanese() ? 'ステップ' : 'Step'}
 						{currentStep} / {totalSteps}
 					</span>
 					<span class="text-sm font-medium">
@@ -125,21 +124,23 @@
 			{#if currentStep === 1}
 				<div in:fade={{ duration: 300 }}>
 					<h2 class="mb-6 text-center text-2xl font-bold">
-						{language === 'ja' ? '業界を教えてください' : 'Tell us about your industry'}
+						{language.isJapanese() ? '業界を教えてください' : 'Tell us about your industry'}
 					</h2>
 					<IndustrySelect />
 				</div>
 			{:else if currentStep === 2}
 				<div in:fade={{ duration: 300 }}>
 					<h2 class="mb-6 text-center text-2xl font-bold">
-						{language === 'ja' ? '現在使用しているテクノロジー' : 'Your current technology stack'}
+						{language.isJapanese()
+							? '現在使用しているテクノロジー'
+							: 'Your current technology stack'}
 					</h2>
 					<TechStackSelect />
 				</div>
 			{:else if currentStep === 3}
 				<div in:fade={{ duration: 300 }}>
 					<h2 class="mb-6 text-center text-2xl font-bold">
-						{language === 'ja' ? '効率化したい業務' : 'Activities you want to optimize'}
+						{language.isJapanese() ? '効率化したい業務' : 'Activities you want to optimize'}
 					</h2>
 					<PainPointTags />
 					<TimeAssessment />
@@ -147,14 +148,14 @@
 			{:else if currentStep === 4}
 				<div in:fade={{ duration: 300 }}>
 					<h2 class="mb-6 text-center text-2xl font-bold">
-						{language === 'ja' ? '会社について' : 'About your company'}
+						{language.isJapanese() ? '会社について' : 'About your company'}
 					</h2>
 					<CompanyForm />
 				</div>
 			{:else if currentStep === 5}
 				<div in:fade={{ duration: 300 }}>
 					<h2 class="mb-6 text-center text-2xl font-bold">
-						{language === 'ja'
+						{language.isJapanese()
 							? '無料のAIソフトウェア推奨リストを入手'
 							: 'Get your free AI software recommendations'}
 					</h2>
@@ -162,7 +163,7 @@
 
 					{#if submitError}
 						<div class="mt-4 rounded-md bg-red-100 p-3 text-red-700">
-							{language === 'ja'
+							{language.isJapanese()
 								? 'エラーが発生しました。もう一度お試しください。'
 								: 'An error occurred. Please try again.'}
 						</div>
@@ -170,7 +171,7 @@
 
 					{#if submitSuccess}
 						<div class="mt-4 rounded-md bg-green-100 p-3 text-green-700">
-							{language === 'ja'
+							{language.isJapanese()
 								? 'ありがとうございます！まもなくメールをお送りします。'
 								: 'Thank you! We will email you shortly.'}
 						</div>
@@ -186,7 +187,7 @@
 						class="rounded-md bg-gray-200 px-4 py-2 transition hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
 						disabled={isSubmitting}
 					>
-						{language === 'ja' ? '戻る' : 'Back'}
+						{language.isJapanese() ? '戻る' : 'Back'}
 					</button>
 				{:else}
 					<div></div>
@@ -197,7 +198,7 @@
 						onclick={nextStep}
 						class="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
 					>
-						{language === 'ja' ? '次へ' : 'Next'}
+						{language.isJapanese() ? '次へ' : 'Next'}
 					</button>
 				{:else}
 					<button
@@ -227,7 +228,7 @@
 								></path>
 							</svg>
 						{/if}
-						{language === 'ja' ? '送信' : 'Submit'}
+						{language.isJapanese() ? '送信' : 'Submit'}
 					</button>
 				{/if}
 			</div>

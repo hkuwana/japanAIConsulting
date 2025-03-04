@@ -30,7 +30,9 @@
 
 <section class="space-y-4">
 	<p class="text-gray-600 dark:text-gray-300">
-		{language === 'ja' ? '当てはまる業界を選択してください' : 'Please select your industry'}
+		{language.currentLanguage === 'ja'
+			? '当てはまる業界を選択してください'
+			: 'Please select your industry'}
 	</p>
 
 	<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -44,7 +46,7 @@
 				onclick={() => selectIndustry(industry.id)}
 			>
 				<span class="font-medium">
-					{language === 'ja' ? industry.ja : industry.en}
+					{language.currentLanguage === 'ja' ? industry.ja : industry.en}
 				</span>
 
 				{#if formData.industry === industry.id}
@@ -69,7 +71,7 @@
 
 	{#if !formData.industry}
 		<p class="text-sm text-red-500">
-			{language === 'ja' ? '業界を選択してください' : 'Please select an industry'}
+			{language.currentLanguage === 'ja' ? '業界を選択してください' : 'Please select an industry'}
 		</p>
 	{/if}
 </section>

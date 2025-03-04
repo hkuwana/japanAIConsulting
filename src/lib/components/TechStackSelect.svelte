@@ -42,7 +42,7 @@
 <section>
 	<div class="mb-4">
 		<p class="mb-2 text-gray-600 dark:text-gray-300">
-			{language === 'ja'
+			{language.currentLanguage === 'ja'
 				? '現在使用しているテクノロジーを選択してください（複数可）'
 				: 'Select the technologies you currently use (multiple selection allowed)'}
 		</p>
@@ -60,7 +60,7 @@
 				onclick={() => toggleTech(tech.id)}
 			>
 				<span>
-					{language === 'ja' ? tech.ja : tech.en}
+					{language.currentLanguage === 'ja' ? tech.ja : tech.en}
 				</span>
 
 				{#if formData.techStack.includes(tech.id)}
@@ -85,7 +85,9 @@
 
 	{#if formData.techStack.length === 0}
 		<p class="mt-2 text-sm text-red-500">
-			{language === 'ja' ? '少なくとも1つ選択してください' : 'Please select at least one option'}
+			{language.currentLanguage === 'ja'
+				? '少なくとも1つ選択してください'
+				: 'Please select at least one option'}
 		</p>
 	{/if}
 </section>
