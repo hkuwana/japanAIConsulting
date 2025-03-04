@@ -145,18 +145,12 @@
 		{#each painPoints as point}
 			<button
 				type="button"
-				class="flex items-center rounded-lg border p-3 transition-colors {formData.painPoints.includes(
-					point.id
-				)
-					? 'border-blue-500 bg-blue-100 dark:border-blue-400 dark:bg-blue-900'
-					: 'border-gray-300 bg-white hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700'}"
+				class="flex items-center rounded-lg border p-3 transition-colors"
 				onclick={() => togglePainPoint(point.id)}
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
-					class="mr-2 h-5 w-5 {formData.painPoints.includes(point.id)
-						? 'text-blue-600 dark:text-blue-400'
-						: 'text-gray-500 dark:text-gray-400'}"
+					class="mr-2 h-5 w-5"
 					fill="none"
 					viewBox="0 0 24 24"
 					stroke="currentColor"

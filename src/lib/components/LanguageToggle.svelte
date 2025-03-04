@@ -4,7 +4,7 @@
 
 	function toggleLanguage() {
 		language.toggle();
-		formData.languagePreference = language.current;
+		formData.languagePreference = language.currentLanguage;
 	}
 </script>
 

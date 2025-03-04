@@ -11,7 +11,7 @@ export type FormDataType = {
 	languagePreference: string;
 };
 
-export const formData = $state({
+export const formData = $state<FormDataType>({
 	industry: '',
 	techStack: [],
 	painPoints: [],
