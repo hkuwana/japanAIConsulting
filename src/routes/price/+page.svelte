@@ -1,495 +1,516 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
-	import { writable } from 'svelte/store';
+	import { onMount } from 'svelte';
+	import { language } from '$lib/stores/language.svelte';
 
-	// Language settings
-	type Language = 'en' | 'ja';
-	const currentLanguage = writable<Language>('en');
-
-	// Translations
-	const translations = {
-		en: {
-			title: 'Pricing | AI Workflow Consulting',
-			meta: 'Transform your business with our AI workflow consulting services. Clear, value-based pricing with guaranteed ROI.',
-			hero: {
-				title: 'Transform Your Business with AI Workflow Solutions',
-				subtitle:
-					'Expert guidance and implementation tailored to your business needs—no matter where you are'
-			},
-			value:
-				'Our consulting service bridges the gap between your existing business operations and cutting-edge AI technologies. We identify inefficiencies, implement tailored solutions, and guide your team through adoption—all while delivering measurable ROI. With our location-independent approach, you get world-class expertise without geographic limitations.',
-			packages: {
-				title: 'Service Packages',
-				essential: {
-					title: 'Essentials',
-					price: '¥750,000 - ¥1,200,000',
-					desc: 'Perfect for small businesses looking to identify and implement basic AI improvements.',
-					features: [
-						'Discovery & Assessment (2 weeks)',
-						'Basic Implementation Planning',
-						'Up to 3 workflow optimizations',
-						'Remote implementation guidance',
-						'30 days of post-implementation support'
-					]
-				},
-				business: {
-					title: 'Business Transformer',
-					price: '¥1,800,000 - ¥2,700,000',
-					badge: 'Most Popular',
-					desc: 'Comprehensive solution for medium-sized businesses ready for significant workflow transformation.',
-					features: [
-						'In-depth Discovery & Assessment (3 weeks)',
-						'Comprehensive Implementation Planning',
-						'Up to 8 workflow optimizations',
-						'Hybrid remote/on-site implementation',
-						'Staff training program',
-						'90 days of optimization support',
-						'Quarterly performance reviews'
-					]
-				},
-				enterprise: {
-					title: 'Enterprise Solution',
-					price: '¥3,750,000 - ¥6,000,000+',
-					desc: 'End-to-end AI transformation for larger organizations with complex operational needs.',
-					features: [
-						'Comprehensive Discovery & Assessment (3-4 weeks)',
-						'Strategic Implementation Planning',
-						'Unlimited workflow optimizations',
-						'Full implementation and integration',
-						'Custom AI solution development',
-						'Executive & staff training programs',
-						'6 months of dedicated support',
-						'Monthly performance reviews'
-					]
-				},
-				maintenance: {
-					title: 'Ongoing Maintenance & Optimization',
-					price: 'From ¥225,000/month',
-					desc: 'After implementation, keep your AI solutions performing at their best with our ongoing support services. Includes system monitoring, updates, troubleshooting, and continuous optimization.'
-				}
-			},
-			cta: {
-				schedule: 'Schedule Discovery Call',
-				learnMore: 'Learn More',
-				bookCall: 'Book Your Discovery Call'
-			},
-			testimonials: {
-				title: 'What Our Clients Say',
-				first: {
-					quote:
-						'The remote consulting process was seamless. Their team identified inefficiencies we never noticed and implemented AI solutions that reduced our processing time by 67%. The ROI was evident within just 2 months.',
-					name: 'Akira Tanaka',
-					position: 'Operations Director, Manufacturing Firm'
-				},
-				second: {
-					quote:
-						'Despite being located in Belgium while we operate from the US, their team was always available when needed. The AI solutions they implemented for our customer service department have increased satisfaction rates by 42%.',
-					name: 'Sarah Johnson',
-					position: 'CEO, Retail Chain'
-				}
-			},
-			faq: {
-				title: 'Frequently Asked Questions',
-				q1: {
-					question: 'How does remote consulting work for AI implementation?',
-					answer:
-						'Our remote consulting process begins with video meetings to understand your business. We use collaborative tools to document workflows, create implementation plans, and guide your team. For the execution phase, we combine remote guidance with local technical partners when needed. All projects include a client portal with resources and scheduled check-ins.'
-				},
-				q2: {
-					question: "What's the typical ROI timeline for your AI solutions?",
-					answer:
-						'Most clients see initial ROI within 3-6 months of implementation. Simple workflow automations can show returns even faster, while more complex transformations may take longer but deliver greater long-term value. Every project includes ROI projections and tracking.'
-				},
-				q3: {
-					question: 'Do we need technical staff to maintain the AI solutions?',
-					answer:
-						'Our implementations are designed to be user-friendly for non-technical staff. We provide comprehensive training and documentation. For ongoing maintenance, our support packages ensure your systems remain optimized without requiring dedicated technical personnel on your team.'
-				},
-				q4: {
-					question: 'How do you handle different time zones?',
-					answer:
-						'We maintain flexible office hours that accommodate clients across Europe, Asia, and North America. All projects include clearly defined communication schedules and response times. For urgent matters, we have support systems that ensure timely assistance regardless of time zone differences.'
-				}
-			},
-			final: {
-				title: 'Ready to Transform Your Business?',
-				text: 'Schedule a no-obligation discovery call to discuss your business needs and learn how our AI workflow solutions can deliver measurable results.'
-			}
-		},
-		ja: {
-			title: '料金プラン | AIワークフロー・コンサルティング',
-			meta: 'AIワークフロー・コンサルティングサービスでビジネスを変革します。明確な価値ベースの料金設定と保証されたROI。',
-			hero: {
-				title: 'AIワークフローソリューションでビジネスを変革',
-				subtitle: 'お客様のビジネスニーズに合わせた専門的なガイダンスと実装—場所を問わず'
-			},
-			value:
-				'当社のコンサルティングサービスは、既存のビジネス運営と最先端AIテクノロジーの間のギャップを埋めます。非効率性を特定し、カスタマイズされたソリューションを実装し、採用プロセスを通じてチームをガイドします—すべて測定可能なROIを提供しながら。場所に依存しないアプローチにより、地理的制限なしで世界クラスの専門知識を得ることができます。',
-			packages: {
-				title: 'サービスパッケージ',
-				essential: {
-					title: 'エッセンシャル',
-					price: '¥750,000 - ¥1,200,000',
-					desc: '基本的なAI改善を特定し実装したい小規模ビジネスに最適。',
-					features: [
-						'発見と評価（2週間）',
-						'基本的な実装計画',
-						'最大3つのワークフロー最適化',
-						'リモート実装ガイダンス',
-						'実装後30日間のサポート'
-					]
-				},
-				business: {
-					title: 'ビジネストランスフォーマー',
-					price: '¥1,800,000 - ¥2,700,000',
-					badge: '人気No.1',
-					desc: '重要なワークフロー変革の準備ができている中規模ビジネスのための包括的なソリューション。',
-					features: [
-						'詳細な発見と評価（3週間）',
-						'包括的な実装計画',
-						'最大8つのワークフロー最適化',
-						'ハイブリッドリモート/オンサイト実装',
-						'スタッフトレーニングプログラム',
-						'90日間の最適化サポート',
-						'四半期ごとのパフォーマンスレビュー'
-					]
-				},
-				enterprise: {
-					title: 'エンタープライズソリューション',
-					price: '¥3,750,000 - ¥6,000,000+',
-					desc: '複雑な運用ニーズを持つ大規模組織のためのエンドツーエンドAI変革。',
-					features: [
-						'包括的な発見と評価（3-4週間）',
-						'戦略的実装計画',
-						'無制限のワークフロー最適化',
-						'フル実装と統合',
-						'カスタムAIソリューション開発',
-						'役員とスタッフのトレーニングプログラム',
-						'6ヶ月間の専用サポート',
-						'月次パフォーマンスレビュー'
-					]
-				},
-				maintenance: {
-					title: '継続的なメンテナンスと最適化',
-					price: '¥225,000/月～',
-					desc: '実装後も、AIソリューションを最高のパフォーマンスで維持します。システムの監視、更新、トラブルシューティング、継続的な最適化を含む継続的なサポートサービスを提供します。'
-				}
-			},
-			cta: {
-				schedule: 'ディスカバリーコールを予約',
-				learnMore: '詳細を見る',
-				bookCall: 'ディスカバリーコールを予約する'
-			},
-			testimonials: {
-				title: 'お客様の声',
-				first: {
-					quote:
-						'リモートコンサルティングプロセスはシームレスでした。彼らのチームは私たちが気づかなかった非効率性を特定し、処理時間を67％削減するAIソリューションを実装しました。ROIはわずか2か月で明らかになりました。',
-					name: '田中 明',
-					position: '製造会社 オペレーションディレクター'
-				},
-				second: {
-					quote:
-						'私たちが米国で運営している間、彼らはベルギーに拠点を置いていましたが、チームは常に必要なときに利用可能でした。カスタマーサービス部門に実装されたAIソリューションにより、満足度が42％向上しました。',
-					name: 'サラ・ジョンソン',
-					position: '小売チェーン CEO'
-				}
-			},
-			faq: {
-				title: 'よくある質問',
-				q1: {
-					question: 'AI実装のためのリモートコンサルティングはどのように機能しますか？',
-					answer:
-						'当社のリモートコンサルティングプロセスは、ビデオ会議からスタートし、お客様のビジネスを理解します。ワークフローを文書化し、実装計画を作成し、チームを導くために協働ツールを使用します。実行フェーズでは、必要に応じてリモートガイダンスと現地技術パートナーを組み合わせます。すべてのプロジェクトには、リソースとスケジュールされたチェックインを含むクライアントポータルが含まれています。'
-				},
-				q2: {
-					question: 'AIソリューションの典型的なROIタイムラインはどのくらいですか？',
-					answer:
-						'ほとんどのクライアントは実装後3〜6ヶ月以内に初期ROIを確認できます。シンプルなワークフロー自動化はさらに早く結果を示すことができますが、より複雑な変革には時間がかかる場合がありますが、長期的な価値が高まります。すべてのプロジェクトにはROI予測と追跡が含まれています。'
-				},
-				q3: {
-					question: 'AIソリューションを維持するために技術スタッフが必要ですか？',
-					answer:
-						'当社の実装は非技術スタッフにとって使いやすいように設計されています。包括的なトレーニングとドキュメントを提供します。継続的なメンテナンスについては、サポートパッケージによりチームに専任の技術者を必要とせずにシステムが最適化された状態を維持できます。'
-				},
-				q4: {
-					question: '異なるタイムゾーンにどのように対応していますか？',
-					answer:
-						'当社は欧州、アジア、北米のクライアントに対応する柔軟なオフィスアワーを維持しています。すべてのプロジェクトには、明確に定義されたコミュニケーションスケジュールと応答時間が含まれています。緊急の問題については、タイムゾーンの違いに関わらず、タイムリーな支援を確保するサポートシステムを備えています。'
-				}
-			},
-			final: {
-				title: 'ビジネスを変革する準備はできていますか？',
-				text: '無料ディスカバリーコールを予約して、ビジネスニーズについて話し合い、当社のAIワークフローソリューションがどのように測定可能な結果をもたらすかを学びましょう。'
-			}
-		}
+	// Form data based on the FormDataType from the store
+	let formData = {
+		industry: '',
+		techStack: [],
+		painPoints: [],
+		timeSpent: 0,
+		companyName: '',
+		companySize: '',
+		companyDescription: '',
+		email: '',
+		languagePreference: language.getCurrent()
 	};
 
-	function toggleLanguage() {
-		currentLanguage.update((lang) => (lang === 'en' ? 'ja' : 'en'));
+	// Form submission
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
+		try {
+			// Form submission logic to be implemented
+			console.log('Form submitted:', formData);
+			alert(
+				language.isEnglish() ? 'Thank you for your inquiry!' : 'お問い合わせありがとうございます！'
+			);
+			// Reset form after submission
+			formData = {
+				industry: '',
+				techStack: [],
+				painPoints: [],
+				timeSpent: 0,
+				companyName: '',
+				companySize: '',
+				companyDescription: '',
+				email: '',
+				languagePreference: language.getCurrent()
+			};
+		} catch (error) {
+			console.error('Error submitting form:', error);
+			alert(
+				language.isEnglish()
+					? 'Error submitting form. Please try again.'
+					: 'フォームの送信中にエラーが発生しました。もう一度お試しください。'
+			);
+		}
 	}
 
-	$: t = translations[$currentLanguage];
+	onMount(() => {
+		// Any client-side initialization can go here
+	});
 </script>
 
 <svelte:head>
-	<title>{t.title}</title>
-	<meta name="description" content={t.meta} />
+	<title>{language.isEnglish() ? 'AI Consulting Services' : 'AIコンサルティングサービス'}</title>
+	<meta
+		name="description"
+		content={language.isEnglish()
+			? 'Expert AI consulting services tailored for Japanese businesses'
+			: '日本企業向けの専門的なAIコンサルティングサービス'}
+	/>
+	<meta
+		name="keywords"
+		content={language.isEnglish()
+			? 'AI consulting, Japanese business, AI strategy, AI implementation'
+			: 'AIコンサルティング, 日本企業, AI戦略, AI実装'}
+	/>
+	<meta
+		property="og:title"
+		content={language.isEnglish() ? 'AI Consulting Services' : 'AIコンサルティングサービス'}
+	/>
+	<meta
+		property="og:description"
+		content={language.isEnglish()
+			? 'Expert AI consulting services tailored for Japanese businesses'
+			: '日本企業向けの専門的なAIコンサルティングサービス'}
+	/>
+	<meta property="og:type" content="website" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50">
-	<!-- Language Switcher -->
-	<div class="fixed top-4 right-4 z-50">
-		<button
-			class="flex items-center space-x-2 rounded-md bg-white px-3 py-2 shadow-md transition-colors hover:bg-gray-100"
-			on:click={toggleLanguage}
-		>
-			<span class="text-sm font-medium">{$currentLanguage === 'en' ? '日本語' : 'English'}</span>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
-				/>
-			</svg>
+<div class="container mx-auto max-w-6xl px-4 py-8">
+	<!-- Language toggle button -->
+	<div class="mb-4 flex justify-end">
+		<button onclick={() => language.toggle()} class="btn btn-primary btn-sm">
+			{language.isEnglish() ? '日本語' : 'English'}
 		</button>
 	</div>
 
-	<!-- Hero Section -->
-	<section
-		class="bg-gradient-to-r from-blue-900 to-blue-600 px-6 py-20 text-white"
-		in:fly={{ y: 50, duration: 500 }}
-	>
-		<div class="mx-auto max-w-4xl text-center">
-			<h1 class="mb-4 text-4xl font-bold md:text-5xl">{t.hero.title}</h1>
-			<p class="mx-auto max-w-2xl text-xl opacity-90">{t.hero.subtitle}</p>
+	<!-- Header section -->
+	<header class="bg-base-200 mb-12 rounded-lg p-8 text-center">
+		<h1 class="text-primary mb-2 text-4xl font-bold">
+			{language.isEnglish() ? 'AI Consulting Services' : 'AIコンサルティングサービス'}
+		</h1>
+		<p class="text-base-content/70 mx-auto max-w-3xl text-xl">
+			{language.isEnglish()
+				? 'Strategic AI solutions tailored for Japanese business environments'
+				: '日本のビジネス環境に合わせた戦略的AIソリューション'}
+		</p>
+	</header>
+
+	<!-- Services section -->
+	<section class="mb-12">
+		<h2 class="text-primary mb-6 text-3xl font-bold">
+			{language.isEnglish() ? 'AI Advisory Services' : 'AIアドバイザリーサービス'}
+		</h2>
+
+		<div class="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
+			<!-- Strategic AI Consultation -->
+			<div class="card bg-base-100 shadow-lg transition-shadow hover:shadow-xl">
+				<div class="card-body">
+					<h3 class="card-title text-primary">
+						{language.isEnglish() ? 'Strategic AI Consultation' : '戦略的AIコンサルテーション'}
+					</h3>
+					<ul class="list-disc space-y-2 pl-5">
+						<li>
+							{language.isEnglish()
+								? 'Premium advisory retainer (4-8 hours monthly)'
+								: 'プレミアムアドバイザリーリテイナー（月4〜8時間）'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Expert guidance on AI implementation strategy'
+								: 'AI実装戦略に関する専門的なガイダンス'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Personalized recommendations for Japanese business context'
+								: '日本のビジネス文脈に合わせたパーソナライズされた推奨事項'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Access to exclusive AI insights relevant to your industry'
+								: 'あなたの業界に関連する独占的なAIインサイトへのアクセス'}
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- AI Diagnostic Workshop -->
+			<div class="card bg-base-100 shadow-lg transition-shadow hover:shadow-xl">
+				<div class="card-body">
+					<h3 class="card-title text-primary">
+						{language.isEnglish() ? 'AI Diagnostic Workshop' : 'AI診断ワークショップ'}
+					</h3>
+					<ul class="list-disc space-y-2 pl-5">
+						<li>
+							{language.isEnglish()
+								? '3-4 hour comprehensive assessment'
+								: '3〜4時間の包括的な評価'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Identification of key AI opportunities specific to your business'
+								: 'あなたのビジネスに特化した主要なAIの機会の特定'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Prioritized implementation roadmap'
+								: '優先順位付けされた実装ロードマップ'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'ROI analysis of potential AI solutions'
+								: '潜在的なAIソリューションのROI分析'}
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Implementation Partnership Program -->
+			<div class="card bg-base-100 shadow-lg transition-shadow hover:shadow-xl">
+				<div class="card-body">
+					<h3 class="card-title text-primary">
+						{language.isEnglish()
+							? 'Implementation Partnership Program'
+							: '実装パートナーシッププログラム'}
+					</h3>
+					<ul class="list-disc space-y-2 pl-5">
+						<li>
+							{language.isEnglish()
+								? 'Strategic oversight of AI implementation projects'
+								: 'AI実装プロジェクトの戦略的監督'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Connection to vetted technical partners'
+								: '審査済みの技術パートナーへの接続'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Quality assurance and progress monitoring'
+								: '品質保証と進捗モニタリング'}
+						</li>
+						<li>
+							{language.isEnglish()
+								? 'Minimized risk and optimized outcomes'
+								: 'リスクの最小化と結果の最適化'}
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</section>
 
-	<!-- Value Proposition -->
-	<section class="bg-white px-6 py-16" in:fly={{ y: 50, duration: 500, delay: 100 }}>
-		<div class="mx-auto max-w-4xl text-center">
-			<p class="text-lg leading-relaxed text-gray-700">{t.value}</p>
+	<!-- Why Choose Us section -->
+	<section class="mb-12">
+		<h2 class="text-primary mb-6 text-3xl font-bold">
+			{language.isEnglish() ? 'Why Choose Our Services' : '当社のサービスが選ばれる理由'}
+		</h2>
+		<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+			<!-- Japanese Business Expertise -->
+			<div class="card bg-base-100 text-center shadow-lg">
+				<div class="card-body">
+					<div class="mb-4 text-4xl">🔍</div>
+					<h3 class="text-primary text-xl font-semibold">
+						{language.isEnglish() ? 'Japanese Business Expertise' : '日本のビジネス専門知識'}
+					</h3>
+					<p>
+						{language.isEnglish()
+							? 'Specialized knowledge of AI applications for Japanese businesses'
+							: '日本企業向けのAIアプリケーションに関する専門知識'}
+					</p>
+				</div>
+			</div>
+
+			<!-- Time-Efficient Approach -->
+			<div class="card bg-base-100 text-center shadow-lg">
+				<div class="card-body">
+					<div class="mb-4 text-4xl">⏱️</div>
+					<h3 class="text-primary text-xl font-semibold">
+						{language.isEnglish() ? 'Time-Efficient Approach' : '時間効率の良いアプローチ'}
+					</h3>
+					<p>
+						{language.isEnglish()
+							? 'Time-efficient approach that delivers maximum value'
+							: '最大の価値を提供する時間効率の良いアプローチ'}
+					</p>
+				</div>
+			</div>
+
+			<!-- Practical Solutions -->
+			<div class="card bg-base-100 text-center shadow-lg">
+				<div class="card-body">
+					<div class="mb-4 text-4xl">📊</div>
+					<h3 class="text-primary text-xl font-semibold">
+						{language.isEnglish() ? 'Practical Solutions' : '実用的なソリューション'}
+					</h3>
+					<p>
+						{language.isEnglish()
+							? 'Focus on practical solutions with measurable results'
+							: '測定可能な結果を持つ実用的なソリューションに焦点'}
+					</p>
+				</div>
+			</div>
+
+			<!-- Strategic Expertise -->
+			<div class="card bg-base-100 text-center shadow-lg">
+				<div class="card-body">
+					<div class="mb-4 text-4xl">💡</div>
+					<h3 class="text-primary text-xl font-semibold">
+						{language.isEnglish() ? 'Strategic Expertise' : '戦略的な専門知識'}
+					</h3>
+					<p>
+						{language.isEnglish()
+							? 'Strategic thinking combined with technical expertise'
+							: '技術的な専門知識と戦略的思考の組み合わせ'}
+					</p>
+				</div>
+			</div>
 		</div>
 	</section>
 
-	<!-- Pricing Plans -->
-	<section class="px-6 py-16" in:fly={{ y: 50, duration: 500, delay: 200 }}>
-		<div class="mx-auto max-w-6xl">
-			<h2 class="mb-12 text-center text-3xl font-bold text-blue-900">{t.packages.title}</h2>
+	<!-- Testimonials section -->
+	<section class="mb-12">
+		<h2 class="text-primary mb-6 text-3xl font-bold">
+			{language.isEnglish() ? 'Client Testimonials' : 'クライアントの声'}
+		</h2>
+		<div class="card bg-base-100 text-base-content/70 p-8 text-center italic shadow-lg">
+			{language.isEnglish()
+				? 'Testimonials will be added here as they become available.'
+				: 'お客様の声は、入手可能になり次第ここに追加されます。'}
+		</div>
+	</section>
 
-			<div class="mb-12 grid gap-8 md:grid-cols-3">
-				<!-- Essentials Plan -->
-				<div
-					class="transform overflow-hidden rounded-lg bg-white shadow-lg transition-shadow duration-300 hover:-translate-y-1 hover:shadow-xl"
-				>
-					<div class="bg-gray-50 p-6 text-center">
-						<h3 class="mb-2 text-2xl font-bold text-blue-900">{t.packages.essential.title}</h3>
-						<p class="text-2xl font-extrabold">{t.packages.essential.price}</p>
+	<!-- Contact section -->
+	<section class="mb-12" id="contact">
+		<h2 class="text-primary mb-6 text-3xl font-bold">
+			{language.isEnglish() ? 'Contact Us' : 'お問い合わせ'}
+		</h2>
+		<div class="grid gap-8 md:grid-cols-3">
+			<!-- Contact information -->
+			<div class="card bg-primary text-primary-content col-span-1">
+				<div class="card-body">
+					<h3 class="card-title text-xl font-semibold">
+						{language.isEnglish() ? 'Get in Touch' : 'お問い合わせ方法'}
+					</h3>
+					<p>
+						{language.isEnglish()
+							? 'Ready to transform your business with AI? Contact us to discuss your specific needs.'
+							: 'AIでビジネスを変革する準備はできていますか？特定のニーズについて話し合うには、お問い合わせください。'}
+					</p>
+					<div class="mt-6 space-y-2">
+						<p><strong>Email:</strong> contact@example.com</p>
+						<p>
+							<strong>{language.isEnglish() ? 'Phone' : '電話番号'}:</strong> +81 XX-XXXX-XXXX
+						</p>
 					</div>
-					<div class="p-6">
-						<p class="mb-6 text-gray-600">{t.packages.essential.desc}</p>
-						<ul class="mb-8 space-y-3">
-							{#each t.packages.essential.features as feature}
-								<li class="flex items-start">
-									<svg
-										class="mt-0.5 mr-2 h-5 w-5 flex-shrink-0 text-blue-500"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20"
-										fill="currentColor"
-									>
-										<path
-											fill-rule="evenodd"
-											d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-											clip-rule="evenodd"
-										/>
-									</svg>
-									<span class="text-gray-700">{feature}</span>
-								</li>
-							{/each}
-						</ul>
-						<button
-							class="w-full rounded border-2 border-blue-900 bg-white px-4 py-3 font-medium text-blue-900 transition-colors hover:bg-blue-50"
-						>
-							{t.cta.schedule}
+				</div>
+			</div>
+
+			<!-- Contact form -->
+			<div class="card bg-base-100 col-span-2 shadow-lg">
+				<div class="card-body">
+					<form class="space-y-4" onsubmit={handleSubmit}>
+						<!-- Company information fieldset -->
+						<fieldset class="border-base-300 rounded-md border p-4">
+							<legend class="px-2 font-semibold">
+								{language.isEnglish() ? 'Company Information' : '会社情報'}
+							</legend>
+
+							<div class="form-control w-full">
+								<label class="label" for="companyName">
+									<span class="label-text">
+										{language.isEnglish() ? 'Company Name' : '会社名'}
+									</span>
+								</label>
+								<input
+									type="text"
+									id="companyName"
+									bind:value={formData.companyName}
+									placeholder={language.isEnglish() ? 'Your company name' : '会社名'}
+									class="input input-bordered w-full"
+								/>
+							</div>
+
+							<div class="form-control w-full">
+								<label class="label" for="companySize">
+									<span class="label-text">
+										{language.isEnglish() ? 'Company Size' : '会社規模'}
+									</span>
+								</label>
+								<select
+									id="companySize"
+									bind:value={formData.companySize}
+									class="select select-bordered w-full"
+								>
+									<option value="" disabled selected>
+										{language.isEnglish() ? 'Select company size' : '会社規模を選択'}
+									</option>
+									<option value="1-10">1-10</option>
+									<option value="11-50">11-50</option>
+									<option value="51-200">51-200</option>
+									<option value="201-500">201-500</option>
+									<option value="500+">500+</option>
+								</select>
+							</div>
+
+							<div class="form-control w-full">
+								<label class="label" for="industry">
+									<span class="label-text">
+										{language.isEnglish() ? 'Industry' : '業界'}
+									</span>
+								</label>
+								<input
+									type="text"
+									id="industry"
+									bind:value={formData.industry}
+									placeholder={language.isEnglish() ? 'Your industry' : '業界'}
+									class="input input-bordered w-full"
+								/>
+							</div>
+
+							<div class="form-control w-full">
+								<label class="label" for="companyDescription">
+									<span class="label-text">
+										{language.isEnglish() ? 'Company Description' : '会社概要'}
+									</span>
+								</label>
+								<textarea
+									id="companyDescription"
+									bind:value={formData.companyDescription}
+									placeholder={language.isEnglish()
+										? 'Brief description of your company'
+										: '会社の簡単な説明'}
+									class="textarea textarea-bordered w-full"
+									rows="3"
+								></textarea>
+							</div>
+						</fieldset>
+
+						<!-- Technical information fieldset -->
+						<fieldset class="border-base-300 rounded-md border p-4">
+							<legend class="px-2 font-semibold">
+								{language.isEnglish() ? 'Technical Information' : '技術情報'}
+							</legend>
+
+							<div class="form-control w-full">
+								<label class="label" for="techStack">
+									<span class="label-text">
+										{language.isEnglish() ? 'Current Technology Stack' : '現在の技術スタック'}
+									</span>
+								</label>
+								<input
+									type="text"
+									id="techStack"
+									placeholder={language.isEnglish()
+										? 'Technologies you currently use'
+										: '現在使用している技術'}
+									class="input input-bordered w-full"
+									onchange={(e) => {
+										formData.techStack = e.target.value.split(',').map((item) => item.trim());
+									}}
+								/>
+								<label class="label">
+									<span class="label-text-alt">
+										{language.isEnglish() ? 'Separate with commas' : 'カンマで区切ってください'}
+									</span>
+								</label>
+							</div>
+
+							<div class="form-control w-full">
+								
+								<label class="label" for="painPoints">
+									<span class="label-text">
+										{language.isEnglish() ? 'Current Pain Points' : '現在の課題点'}
+									</span>
+								</label>
+								<textarea
+									id="painPoints"
+									placeholder={language.isEnglish()
+										? 'Describe your current challenges'
+										: '現在の課題を説明してください'}
+									class="textarea textarea-bordered w-full"
+									rows="3"
+									onchange={(e) => {
+										formData.painPoints = e.target.value.split('\n').filter(Boolean);
+									}}
+								></textarea>
+							</div>
+
+							<div class="form-control w-full">
+								<label class="label" for="timeSpent">
+									<span class="label-text">
+										{language.isEnglish()
+											? 'Time Spent on AI Research (hours/week)'
+											: 'AI研究に費やす時間（時間/週）'}
+									</span>
+								</label>
+								<input
+									type="range"
+									id="timeSpent"
+									bind:value={formData.timeSpent}
+									min="0"
+									max="40"
+									step="1"
+									class="range"
+								/>
+								<div class="flex w-full justify-between text-xs">
+									<span>0</span>
+									<span>10</span>
+									<span>20</span>
+									<span>30</span>
+									<span>40+</span>
+								</div>
+							</div>
+						</fieldset>
+
+						<!-- Contact information fieldset -->
+						<fieldset class="border-base-300 rounded-md border p-4">
+							<legend class="px-2 font-semibold">
+								{language.isEnglish() ? 'Contact Information' : '連絡先情報'}
+							</legend>
+
+							<div class="form-control w-full">
+								<label class="label" for="email">
+									<span class="label-text">
+										{language.isEnglish() ? 'Email' : 'メールアドレス'}
+									</span>
+								</label>
+								<input
+									type="email"
+									id="email"
+									bind:value={formData.email}
+									placeholder={language.isEnglish() ? 'Your email address' : 'メールアドレス'}
+									class="input input-bordered w-full"
+									required
+								/>
+							</div>
+
+							<div class="form-control w-full">
+								<label class="label" for="languagePreference">
+									<span class="label-text">
+										{language.isEnglish() ? 'Preferred Communication Language' : '希望する連絡言語'}
+									</span>
+								</label>
+								<select
+									id="languagePreference"
+									bind:value={formData.languagePreference}
+									class="select select-bordered w-full"
+								>
+									<option value="en">English</option>
+									<option value="ja">日本語</option>
+								</select>
+							</div>
+						</fieldset>
+
+						<button type="submit" class="btn btn-primary w-full">
+							{language.isEnglish() ? 'Submit Inquiry' : '問い合わせを送信'}
 						</button>
-					</div>
-				</div>
-
-				<!-- Business Transformer Plan -->
-				<div
-					class="z-10 scale-105 transform overflow-hidden rounded-lg border-2 border-blue-900 bg-white shadow-xl"
-				>
-					<div class="relative bg-blue-50 p-6 text-center">
-						<div
-							class="absolute -top-3 right-6 rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-white"
-						>
-							{t.packages.business.badge}
-						</div>
-						<h3 class="mb-2 text-2xl font-bold text-blue-900">{t.packages.business.title}</h3>
-						<p class="text-2xl font-extrabold">{t.packages.business.price}</p>
-					</div>
-					<div class="p-6">
-						<p class="mb-6 text-gray-600">{t.packages.business.desc}</p>
-						<ul class="mb-8 space-y-3">
-							{#each t.packages.business.features as feature}
-								<li class="flex items-start">
-									<svg
-										class="mt-0.5 mr-2 h-5 w-5 flex-shrink-0 text-blue-500"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20"
-										fill="currentColor"
-									>
-										<path
-											fill-rule="evenodd"
-											d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-											clip-rule="evenodd"
-										/>
-									</svg>
-									<span class="text-gray-700">{feature}</span>
-								</li>
-							{/each}
-						</ul>
-						<button
-							class="w-full rounded bg-blue-900 px-4 py-3 font-medium text-white transition-colors hover:bg-blue-800"
-						>
-							{t.cta.schedule}
-						</button>
-					</div>
-				</div>
-
-				<!-- Enterprise Solution Plan -->
-				<div
-					class="transform overflow-hidden rounded-lg bg-white shadow-lg transition-shadow duration-300 hover:-translate-y-1 hover:shadow-xl"
-				>
-					<div class="bg-gray-50 p-6 text-center">
-						<h3 class="mb-2 text-2xl font-bold text-blue-900">{t.packages.enterprise.title}</h3>
-						<p class="text-2xl font-extrabold">{t.packages.enterprise.price}</p>
-					</div>
-					<div class="p-6">
-						<p class="mb-6 text-gray-600">{t.packages.enterprise.desc}</p>
-						<ul class="mb-8 space-y-3">
-							{#each t.packages.enterprise.features as feature}
-								<li class="flex items-start">
-									<svg
-										class="mt-0.5 mr-2 h-5 w-5 flex-shrink-0 text-blue-500"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20"
-										fill="currentColor"
-									>
-										<path
-											fill-rule="evenodd"
-											d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-											clip-rule="evenodd"
-										/>
-									</svg>
-									<span class="text-gray-700">{feature}</span>
-								</li>
-							{/each}
-						</ul>
-						<button
-							class="w-full rounded border-2 border-blue-900 bg-white px-4 py-3 font-medium text-blue-900 transition-colors hover:bg-blue-50"
-						>
-							{t.cta.schedule}
-						</button>
-					</div>
+					</form>
 				</div>
 			</div>
-
-			<!-- Maintenance Plan -->
-			<div class="rounded-lg bg-blue-50 p-8 text-center">
-				<h3 class="mb-2 text-2xl font-bold text-blue-900">{t.packages.maintenance.title}</h3>
-				<p class="mb-3 text-xl font-bold">{t.packages.maintenance.price}</p>
-				<p class="mx-auto mb-6 max-w-3xl text-gray-700">{t.packages.maintenance.desc}</p>
-				<button
-					class="inline-block rounded border-2 border-blue-900 bg-white px-8 py-3 font-medium text-blue-900 transition-colors hover:bg-blue-50"
-				>
-					{t.cta.learnMore}
-				</button>
-			</div>
-		</div>
-	</section>
-
-	<!-- Testimonials -->
-	<section class="bg-gray-50 px-6 py-16" in:fly={{ y: 50, duration: 500, delay: 300 }}>
-		<div class="mx-auto max-w-6xl">
-			<h2 class="mb-12 text-center text-3xl font-bold text-blue-900">{t.testimonials.title}</h2>
-
-			<div class="grid gap-8 md:grid-cols-2">
-				<div class="rounded-lg bg-white p-8 shadow-md">
-					<p class="mb-6 leading-relaxed text-gray-700 italic">"{t.testimonials.first.quote}"</p>
-					<div class="flex items-center">
-						<div class="mr-4 h-12 w-12 rounded-full bg-gray-300"></div>
-						<div>
-							<p class="font-bold">{t.testimonials.first.name}</p>
-							<p class="text-sm text-gray-600">{t.testimonials.first.position}</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="rounded-lg bg-white p-8 shadow-md">
-					<p class="mb-6 leading-relaxed text-gray-700 italic">"{t.testimonials.second.quote}"</p>
-					<div class="flex items-center">
-						<div class="mr-4 h-12 w-12 rounded-full bg-gray-300"></div>
-						<div>
-							<p class="font-bold">{t.testimonials.second.name}</p>
-							<p class="text-sm text-gray-600">{t.testimonials.second.position}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- FAQ -->
-	<section class="bg-white px-6 py-16" in:fly={{ y: 50, duration: 500, delay: 400 }}>
-		<div class="mx-auto max-w-4xl">
-			<h2 class="mb-12 text-center text-3xl font-bold text-blue-900">{t.faq.title}</h2>
-
-			<div class="space-y-8">
-				<div>
-					<h3 class="mb-3 text-xl font-semibold text-blue-900">{t.faq.q1.question}</h3>
-					<p class="leading-relaxed text-gray-700">{t.faq.q1.answer}</p>
-				</div>
-
-				<div>
-					<h3 class="mb-3 text-xl font-semibold text-blue-900">{t.faq.q2.question}</h3>
-					<p class="leading-relaxed text-gray-700">{t.faq.q2.answer}</p>
-				</div>
-
-				<div>
-					<h3 class="mb-3 text-xl font-semibold text-blue-900">{t.faq.q3.question}</h3>
-					<p class="leading-relaxed text-gray-700">{t.faq.q3.answer}</p>
-				</div>
-
-				<div>
-					<h3 class="mb-3 text-xl font-semibold text-blue-900">{t.faq.q4.question}</h3>
-					<p class="leading-relaxed text-gray-700">{t.faq.q4.answer}</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- CTA Section -->
-	<section
-		class="bg-gradient-to-r from-blue-900 to-blue-600 px-6 py-16 text-center text-white"
-		in:fly={{ y: 50, duration: 500, delay: 500 }}
-	>
-		<div class="mx-auto max-w-4xl">
-			<h2 class="mb-4 text-3xl font-bold">{t.final.title}</h2>
-			<p class="mx-auto mb-8 max-w-2xl text-xl opacity-90">{t.final.text}</p>
-			<button
-				class="rounded-md bg-white px-8 py-4 text-lg font-bold text-blue-900 transition-colors hover:bg-blue-50"
-			>
-				{t.cta.bookCall}
-			</button>
 		</div>
 	</section>
 </div>
