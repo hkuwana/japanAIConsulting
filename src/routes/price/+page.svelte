@@ -5,8 +5,8 @@
 	// Form data based on the FormDataType from the store
 	let formData = {
 		industry: '',
-		techStack: [],
-		painPoints: [],
+		techStack: [] as string[],
+		painPoints: [] as string[],
 		timeSpent: 0,
 		companyName: '',
 		companySize: '',
@@ -44,6 +44,18 @@
 					: 'フォームの送信中にエラーが発生しました。もう一度お試しください。'
 			);
 		}
+	}
+
+	// Handle tech stack changes
+	function handleTechStackChange(event: Event) {
+		const target = event.target as HTMLInputElement;
+		formData.techStack = target.value.split(',').map((item: string) => item.trim());
+	}
+
+	// Handle pain points changes
+	function handlePainPointsChange(event: Event) {
+		const target = event.target as HTMLTextAreaElement;
+		formData.painPoints = target.value.split('\n').filter(Boolean);
 	}
 
 	onMount(() => {
@@ -408,9 +420,7 @@
 										? 'Technologies you currently use'
 										: '現在使用している技術'}
 									class="input input-bordered w-full"
-									onchange={(e) => {
-										formData.techStack = e.target.value.split(',').map((item) => item.trim());
-									}}
+									onchange={handleTechStackChange}
 								/>
 								<label class="label">
 									<span class="label-text-alt">
@@ -420,7 +430,6 @@
 							</div>
 
 							<div class="form-control w-full">
-								
 								<label class="label" for="painPoints">
 									<span class="label-text">
 										{language.isEnglish() ? 'Current Pain Points' : '現在の課題点'}
@@ -433,9 +442,7 @@
 										: '現在の課題を説明してください'}
 									class="textarea textarea-bordered w-full"
 									rows="3"
-									onchange={(e) => {
-										formData.painPoints = e.target.value.split('\n').filter(Boolean);
-									}}
+									onchange={handlePainPointsChange}
 								></textarea>
 							</div>
 
