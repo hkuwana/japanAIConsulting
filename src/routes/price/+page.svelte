@@ -64,52 +64,444 @@
 </script>
 
 <svelte:head>
-	<title>{language.isEnglish() ? 'AI Consulting Services' : 'AIコンサルティングサービス'}</title>
+	<title
+		>{language.isEnglish()
+			? 'AI Consulting Services & Pricing'
+			: 'AIコンサルティングサービスと料金'}</title
+	>
 	<meta
 		name="description"
 		content={language.isEnglish()
-			? 'Expert AI consulting services tailored for Japanese businesses'
-			: '日本企業向けの専門的なAIコンサルティングサービス'}
+			? 'Expert AI consulting services and pricing options tailored for Japanese businesses'
+			: '日本企業向けの専門的なAIコンサルティングサービスと料金オプション'}
 	/>
 	<meta
 		name="keywords"
 		content={language.isEnglish()
-			? 'AI consulting, Japanese business, AI strategy, AI implementation'
-			: 'AIコンサルティング, 日本企業, AI戦略, AI実装'}
+			? 'AI consulting, Japanese business, AI strategy, AI implementation, pricing'
+			: 'AIコンサルティング, 日本企業, AI戦略, AI実装, 料金'}
 	/>
 	<meta
 		property="og:title"
-		content={language.isEnglish() ? 'AI Consulting Services' : 'AIコンサルティングサービス'}
+		content={language.isEnglish()
+			? 'AI Consulting Services & Pricing'
+			: 'AIコンサルティングサービスと料金'}
 	/>
 	<meta
 		property="og:description"
 		content={language.isEnglish()
-			? 'Expert AI consulting services tailored for Japanese businesses'
-			: '日本企業向けの専門的なAIコンサルティングサービス'}
+			? 'Expert AI consulting services and pricing options tailored for Japanese businesses'
+			: '日本企業向けの専門的なAIコンサルティングサービスと料金オプション'}
 	/>
 	<meta property="og:type" content="website" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </svelte:head>
 
 <div class="container mx-auto max-w-6xl px-4 py-8">
-	<!-- Language toggle button -->
-	<div class="mb-4 flex justify-end">
-		<button onclick={() => language.toggle()} class="btn btn-primary btn-sm">
-			{language.isEnglish() ? '日本語' : 'English'}
-		</button>
-	</div>
-
 	<!-- Header section -->
 	<header class="bg-base-200 mb-12 rounded-lg p-8 text-center">
 		<h1 class="text-primary mb-2 text-4xl font-bold">
-			{language.isEnglish() ? 'AI Consulting Services' : 'AIコンサルティングサービス'}
+			{language.isEnglish()
+				? 'AI Consulting Services & Pricing'
+				: 'AIコンサルティングサービスと料金'}
 		</h1>
 		<p class="text-base-content/70 mx-auto max-w-3xl text-xl">
 			{language.isEnglish()
-				? 'Strategic AI solutions tailored for Japanese business environments'
-				: '日本のビジネス環境に合わせた戦略的AIソリューション'}
+				? 'Transparent pricing for strategic AI solutions tailored for Japanese business environments'
+				: '日本のビジネス環境に合わせた戦略的AIソリューションの透明な料金体系'}
 		</p>
 	</header>
+
+	<!-- Pricing Tiers section -->
+	<section class="mb-16">
+		<h2 class="text-primary mb-8 text-center text-3xl font-bold">
+			{language.isEnglish() ? 'Our Pricing Tiers' : '料金プラン'}
+		</h2>
+
+		<div class="grid gap-8 md:grid-cols-1 lg:grid-cols-3">
+			<!-- Advisory Retainer -->
+			<div class="card bg-base-100 shadow-xl">
+				<div class="card-body">
+					<div class="bg-primary text-primary-content -mx-6 -mt-6 mb-6 rounded-t-lg p-6">
+						<h3 class="card-title text-2xl">
+							{language.isEnglish() ? 'Advisory Retainer' : 'アドバイザリーリテイナー'}
+						</h3>
+						<div class="mt-4 flex items-baseline">
+							<span class="text-3xl font-bold">$300-500</span>
+							<span class="ml-1 text-xl">{language.isEnglish() ? '/hour' : '/時間'}</span>
+						</div>
+					</div>
+
+					<p class="mb-4">
+						{language.isEnglish()
+							? 'Premium monthly advisory service with dedicated access to AI expertise.'
+							: 'AI専門知識へのアクセスを提供するプレミアム月額アドバイザリーサービス。'}
+					</p>
+
+					<ul class="mb-6 space-y-3">
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? '4-8 hours of dedicated monthly consultation'
+									: '月4〜8時間の専用コンサルテーション'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Direct access to senior AI strategist'
+									: '上級AIストラテジストへの直接アクセス'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Customized AI strategy development'
+									: 'カスタマイズされたAI戦略の開発'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Priority response to inquiries'
+									: '問い合わせへの優先対応'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Exclusive industry insights'
+									: '業界に特化した洞察の提供'}</span
+							>
+						</li>
+					</ul>
+
+					<div class="card-actions mt-auto justify-end">
+						<a href="#contact" class="btn btn-primary btn-block">
+							{language.isEnglish() ? 'Inquire Now' : '今すぐ問い合わせ'}
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Diagnostic Workshop -->
+			<div class="card bg-base-100 shadow-xl">
+				<div class="card-body">
+					<div class="bg-primary text-primary-content -mx-6 -mt-6 mb-6 rounded-t-lg p-6">
+						<h3 class="card-title text-2xl">
+							{language.isEnglish() ? 'Diagnostic Workshop' : '診断ワークショップ'}
+						</h3>
+						<div class="mt-4 flex items-baseline">
+							<span class="text-3xl font-bold">$2,000-3,000</span>
+							<span class="ml-1 text-xl"
+								>{language.isEnglish() ? '/workshop' : '/ワークショップ'}</span
+							>
+						</div>
+					</div>
+
+					<p class="mb-4">
+						{language.isEnglish()
+							? 'Comprehensive workshop to identify AI opportunities and create an actionable roadmap.'
+							: 'AI機会を特定し、実行可能なロードマップを作成するための包括的なワークショップ。'}
+					</p>
+
+					<ul class="mb-6 space-y-3">
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? '3-4 hour structured workshop'
+									: '3〜4時間の構造化されたワークショップ'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span>{language.isEnglish() ? 'AI opportunity assessment' : 'AI機会の評価'}</span>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Prioritized implementation roadmap'
+									: '優先順位付けされた実装ロードマップ'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'ROI and business impact analysis'
+									: 'ROIとビジネスインパクト分析'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Follow-up strategy document'
+									: 'フォローアップ戦略文書'}</span
+							>
+						</li>
+					</ul>
+
+					<div class="card-actions mt-auto justify-end">
+						<a href="#contact" class="btn btn-primary btn-block">
+							{language.isEnglish() ? 'Inquire Now' : '今すぐ問い合わせ'}
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Implementation Partnership -->
+			<div class="card bg-base-100 shadow-xl">
+				<div class="card-body">
+					<div class="bg-primary text-primary-content -mx-6 -mt-6 mb-6 rounded-t-lg p-6">
+						<h3 class="card-title text-2xl">
+							{language.isEnglish() ? 'Implementation Partnership' : '実装パートナーシップ'}
+						</h3>
+						<div class="mt-4 flex items-baseline">
+							<span class="text-3xl font-bold">10-15%</span>
+							<span class="ml-1 text-xl"
+								>{language.isEnglish() ? 'of project value' : 'プロジェクト価値'}</span
+							>
+						</div>
+					</div>
+
+					<p class="mb-4">
+						{language.isEnglish()
+							? 'Strategic oversight of AI implementation with trusted technical partners.'
+							: '信頼できる技術パートナーによるAI実装の戦略的監督。'}
+					</p>
+
+					<ul class="mb-6 space-y-3">
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Connection to vetted technical partners'
+									: '審査済みの技術パートナーへの接続'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Strategic project oversight'
+									: 'プロジェクトの戦略的監督'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span>{language.isEnglish() ? 'Quality assurance' : '品質保証'}</span>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span
+								>{language.isEnglish()
+									? 'Progress monitoring and reporting'
+									: '進捗モニタリングとレポーティング'}</span
+							>
+						</li>
+						<li class="flex items-start">
+							<svg
+								class="text-success mr-2 h-6 w-6 flex-shrink-0"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path></svg
+							>
+							<span>{language.isEnglish() ? 'Risk minimization' : 'リスクの最小化'}</span>
+						</li>
+					</ul>
+
+					<div class="card-actions mt-auto justify-end">
+						<a href="#contact" class="btn btn-primary btn-block">
+							{language.isEnglish() ? 'Inquire Now' : '今すぐ問い合わせ'}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<!-- Services section -->
 	<section class="mb-12">
@@ -324,7 +716,7 @@
 			<!-- Contact form -->
 			<div class="card bg-base-100 col-span-2 shadow-lg">
 				<div class="card-body">
-					<form class="space-y-4" onsubmit={handleSubmit}>
+					<form class="space-y-4" on:submit={handleSubmit}>
 						<!-- Company information fieldset -->
 						<fieldset class="border-base-300 rounded-md border p-4">
 							<legend class="px-2 font-semibold">
@@ -420,7 +812,7 @@
 										? 'Technologies you currently use'
 										: '現在使用している技術'}
 									class="input input-bordered w-full"
-									onchange={handleTechStackChange}
+									on:change={handleTechStackChange}
 								/>
 								<label class="label">
 									<span class="label-text-alt">
@@ -442,7 +834,7 @@
 										: '現在の課題を説明してください'}
 									class="textarea textarea-bordered w-full"
 									rows="3"
-									onchange={handlePainPointsChange}
+									on:change={handlePainPointsChange}
 								></textarea>
 							</div>
 

@@ -1,8 +1,8 @@
 // Language store with Svelte 5 reactivity
 class LanguageStore {
-	currentLanguage: string = $state('en');
+	currentLanguage: string = $state('ja');
 
-	constructor(defaultLang: string = 'en') {
+	constructor(defaultLang: string = 'ja') {
 		this.currentLanguage = defaultLang;
 	}
 
